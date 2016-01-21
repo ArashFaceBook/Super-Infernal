@@ -2,7 +2,7 @@ local function run(msg, matches)
   if not is_sudo(msg) then -- For Sudoers only !
     return 'It is For Sudo Users'
   end
-	if matches[1] == 'sms' and is_sudo(msg) then
+	if matches[1] == 'maseage' and is_sudo(msg) then
 		local response = matches[3]
 		send_large_msg("user#id"..matches[2], response)
 						local receiver = 'user#id'..user_id
@@ -11,7 +11,7 @@ local function run(msg, matches)
 	end
 return {
   patterns = {
-    "^[!/](sms) (%d+) (.*)$"
+    "^[!/](maseage) (%d+) (.*)$"
   },
   run = run
 }
