@@ -23,7 +23,7 @@ return {
     "!text [equation]: Convert LaTeX equation to image"
   },
   patterns = {
-    "^!text (.+)$"
+    "^!txt2img (.+)$"
   },
   run = run
 }
