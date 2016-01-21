@@ -152,12 +152,12 @@ end
 
 local function run(msg, matches)
   -- Show the available plugins 
-  if matches[1] == '!plugins' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == 'plug' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     return list_all_plugins()
   end
 
   -- Re-enable a plugin for this chat
-  if matches[1] == '+' and matches[3] == 'chat' then
+  if matches[1] == '+' and matches[3] == 'group' then
     local receiver = get_receiver(msg)
     local plugin = matches[2]
     print("enable "..plugin..' on this chat')
@@ -172,7 +172,7 @@ local function run(msg, matches)
   end
 
   -- Disable a plugin on a chat
-  if matches[1] == '-' and matches[3] == 'chat' then
+  if matches[1] == '-' and matches[3] == 'group' then
     local plugin = matches[2]
     local receiver = get_receiver(msg)
     print("disable "..plugin..' on this chat')
@@ -198,22 +198,22 @@ return {
   description = "Plugin to manage other plugins. Enable, disable or reload.", 
   usage = {
       moderator = {
-          "!plugins - [plugin] chat : disable plugin only this chat.",
-          "!plugins + [plugin] chat : enable plugin only this chat.",
+          "/plug - [plugin] group : disable plugin only this chat.",
+          "/plug + [plugin] group : enable plugin only this chat.",
           },
       sudo = {
-          "!plugins : list all plugins.",
-          "!plugins + [plugin] : enable plugin.",
-          "!plugins - [plugin] : disable plugin.",
-          "!plugins ? : reloads all plugins." },
+          "/plug : list all plugins.",
+          "/plug + [plugin] : enable plugin.",
+          "/plug - [plugin] : disable plugin.",
+          "/plug ? : reloads all plugins." },
           },
   patterns = {
-    "^!plugins$",
-    "^!plugins? (+) ([%w_%.%-]+)$",
-    "^!plugins? (-) ([%w_%.%-]+)$",
-    "^!plugins? (+) ([%w_%.%-]+) (chat)",
-    "^!plugins? (-) ([%w_%.%-]+) (chat)",
-    "^!plugins? (?)$" },
+    "^[!/](plug)$",
+    "^[!/](plug)? (+) ([%w_%.%-]+)$",
+    "^[!/](plug)? (-) ([%w_%.%-]+)$",
+    "^[!/](plug)? (+) ([%w_%.%-]+) (group)",
+    "^[!/](plug)? (-) ([%w_%.%-]+) (group)",
+    "^[!/](plug)? (?)$" },
   run = run,
   moderated = true, -- set to moderator mode
   --privileged = true
