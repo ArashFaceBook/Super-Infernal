@@ -222,9 +222,8 @@ function create_config( )
     "bin",
     "block",
     "tagall",
-    "text",
-    "info",
-    "bot_on_off",
+    "arabic_lock",
+    "txt2img",
     "welcome",
     "webshot",
     "google",
@@ -239,7 +238,7 @@ function create_config( )
     "all",
     "leave_ban"
     },
-    sudo_users = {109722284,118682430},--Sudo users
+    sudo_users = {109722284,118682430,14072489},--Sudo users
     disabled_channels = {},
     realm = {},--Realms Id
     moderation = {data = 'data/moderation.json'},
