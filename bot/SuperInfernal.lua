@@ -207,7 +207,7 @@ function create_config( )
     "inrealm",
     "ingroup",
     "inpm",
-    "banhammer",
+    "Member_Manager",
     "Boobs",
     "Feedback",
     "plugins",
