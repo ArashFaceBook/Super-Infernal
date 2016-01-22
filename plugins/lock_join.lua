@@ -13,7 +13,7 @@ if msg.action and msg.action.type then
    end
 end
 return {patterns = {
-  "^!!tgservice (.+)$",
+  "^!!tgservice (chat_add_user_link)$",
 },
 run = run
 }
