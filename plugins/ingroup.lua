@@ -20,8 +20,8 @@ local function check_member_autorealm(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
-          version = 3.5',
-          groupmodel = normal'
+          version = '3.5',
+          groupmodel = 'normal'
         }
       }
       save_data(_config.moderation.data, data)
@@ -1177,9 +1177,43 @@ if matches[2] == '3.5' then
 if matches[1] 'setgroup' then
 	if not is_sudo(msg) then
 	return "For Sudo Users Only!"
-
-		
-   	
+	end
+        if matches[2] == 'realm' then
+        	if groupmodel ~= 'realm' then
+		   data[tostring(msg.to.id)]['settings']['groupmodel'] = 'realm'
+		   save_data(_config.moderation.data, data)
+	   end
+	   return "Group Model Has Been Changed To Realm mode!"
+   end
+   if matches[2] == 'Engsupport' then
+        	if groupmodel ~= 'Engsupport' then
+		   data[tostring(msg.to.id)]['settings']['groupmodel'] = 'Engsupport'
+		   save_data(_config.moderation.data, data)
+	   end
+	   return "Group Model Has Been Changed To English Support Mode!"
+   end
+   if matches[2] == 'Persupport' then
+        	if groupmodel ~= 'Persupport' then
+		   data[tostring(msg.to.id)]['settings']['groupmodel'] = 'Persupport'
+		   save_data(_config.moderation.data, data)
+	   end
+	   return "Group Model Has Been Changed To Persian Support Mode!"
+   end
+   if matches[2] == 'support' then
+        	if groupmodel ~= 'support' then
+		   data[tostring(msg.to.id)]['settings']['groupmodel'] = 'support'
+		   save_data(_config.moderation.data, data)
+	   end
+	   return "Group Model Has Been Changed To Support Mode!"
+   end
+   if matches[2] == 'normal' then
+        	if groupmodel ~= 'normal' then
+		   data[tostring(msg.to.id)]['settings']['groupmodel'] = 'normal'
+		   save_data(_config.moderation.data, data)
+	   end
+	   return "Group Model Has Been Changed To normal Mode!"
+   
+                     	
 end
 end
     if matches[1] == 'settings' then
@@ -1200,7 +1234,7 @@ end
     end
   end]]
 
-    if matches[1] == 'newlink' and not is_realm(msg) then
+    if matches[1] == 'clink' and not is_realm(msg) then
       if not is_momod(msg) then
         return "For moderators only!"
       end
@@ -1209,7 +1243,24 @@ end
         if success == 0 then
            return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
         end
-        send_large_msg(receiver, "Created a new link")
+        send_large_msg(receiver, "Created a link")
+        data[tostring(msg.to.id)]['settings']['set_link'] = result
+        save_data(_config.moderation.data, data)
+      end
+      local receiver = 'chat#'..msg.to.id
+      savelog(msg.to.id, name_log.." ["..msg.from.id.."] revoked group link ")
+      return export_chat_link(receiver, callback, true)
+    end
+    if matches[1] == 'relink' and not is_realm(msg) then
+      if not is_momod(msg) then
+        return "For moderators only!"
+      end
+      local function callback (extra , success, result)
+        local receiver = 'chat#'..msg.to.id
+        if success == 0 then
+           return send_large_msg(receiver, '*Error: revok link failed* \nReason: Not creator.')
+        end
+        send_large_msg(receiver, "Last link Has Been revoked!")
         data[tostring(msg.to.id)]['settings']['set_link'] = result
         save_data(_config.moderation.data, data)
       end
@@ -1223,21 +1274,21 @@ end
       end
       local group_link = data[tostring(msg.to.id)]['settings']['set_link']
       if not group_link then 
-        return "Create a link using /newlink first !"
+        return "Create a link using /clink first !"
       end
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-      return "Group link:\n"..group_link
+      return "Groups Invation link:)\n\n\n"..group_link
     end
-	if matches[1] == 'linkpv' then
+	if matches[1] == 'getlink' then
       if not is_momod(msg) then
         return "For moderators only!"
       end
       local group_link = data[tostring(msg.to.id)]['settings']['set_link']
       if not group_link then 
-        return "Create a link using /newlink first !"
+        return "Create a link using /clink first !"
       end
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-     send_large_msg('user#id'..msg.from.id, "Group link:\n"..group_link)
+     send_large_msg('user#id'..msg.from.id, "Your Groups Invation link:\n"..group_link)
     end
     if matches[1] == 'setowner' and matches[2] then
       if not is_owner(msg) then
@@ -1280,7 +1331,7 @@ end
       if not is_momod(msg) then
         return "For moderators only!"
       end
-      if tonumber(matches[2]) < 5 or tonumber(matches[2]) > 20 then
+      if tonumber(matches[2]) < 2 or tonumber(matches[2]) > 90 then
         return "Wrong number,range is [5-20]"
       end
       local flood_max = matches[2]
@@ -1415,6 +1466,8 @@ return {
   "^[!/](newlink)$",
   "^[!/](link)$",
   "^[!/](linkpv)$",
+  "^[!/](setversion)$",
+  "^[!/](setgroup)$",
   "^[!/](kickinactive)$",
   "^[!/](kickinactive) (%d+)$",
   "%[(photo)%]",
