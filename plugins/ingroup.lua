@@ -1174,6 +1174,10 @@ if matches[2] == '3.5' then
        return "Group Version Has Been Changed To <3.5>!
     end 
  end
+ if matches[1] 'groupmodel' then
+       return 'Group Mode Is "..settings.groupmodel !
+   end
+ end
 if matches[1] 'setgroup' then
 	if not is_sudo(msg) then
 	return "For Sudo Users Only!"
@@ -1466,8 +1470,9 @@ return {
   "^[!/](newlink)$",
   "^[!/](link)$",
   "^[!/](linkpv)$",
-  "^[!/](setversion)$",
-  "^[!/](setgroup)$",
+  "^[!/](setversion) (.*)$",
+  "^[!/](setgroup) (.*)$",
+  "^[!/](groupmodel)$",
   "^[!/](kickinactive)$",
   "^[!/](kickinactive) (%d+)$",
   "%[(photo)%]",
