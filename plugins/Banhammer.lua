@@ -102,18 +102,18 @@ local function kick_ban_res(extra, success, result)
         if is_momod2(member_id, chat_id) and not is_admin2(sender) then
           return send_large_msg(receiver, "You can't ban mods/owner/admins")
         end
-        send_large_msg(receiver, 'User @'..member..' < '..member_id..' > banned')
+        send_large_msg(receiver, 'User @'..member..' <'..member_id..'> banned')
         return ban_user(member_id, chat_id)
       elseif get_cmd == 'unban' then
-        send_large_msg(receiver, 'User @'..member..' < '..member_id..' > unbanned')
+        send_large_msg(receiver, 'User @'..member..' <'..member_id..'> unbanned')
         local hash =  'banned:'..chat_id
         redis:srem(hash, member_id)
         return 'User '..user_id..' unbanned'
       elseif get_cmd == 'globalban' then
-        send_large_msg(receiver, 'User @'..member..' < '..member_id..' > banned from all!')
+        send_large_msg(receiver, 'User @'..member..' <'..member_id..'> banned from all!')
         return banall_user(member_id, chat_id)
       elseif get_cmd == 'unglobalban' then
-        send_large_msg(receiver, 'User @'..member..' < '..member_id..' > un-banned from all!')
+        send_large_msg(receiver, 'User @'..member..' <'..member_id..'> un-banned from all!')
         return unbanall_user(member_id, chat_id)
       end
 end
@@ -130,7 +130,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Group ID :\n"(#"..msg.to.id..)"\nYour ID :\n(#"..msg.from.id..") 
+      return "Group ID :\n"("..msg.to.id..)"\nYour ID :\n("..msg.from.id..") 
     end
   end
   if matches[1]:lower() == 'kickme' then-- /kickme
