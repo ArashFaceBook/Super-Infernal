@@ -19,7 +19,9 @@ local function check_member_autorealm(cb_extra, success, result)
 		  lock_name = 'yes',
           lock_photo = 'no',
           lock_member = 'no',
-          flood = 'yes'
+          flood = 'yes',
+          version = 3.5',
+          groupmodel = normal'
         }
       }
       save_data(_config.moderation.data, data)
@@ -52,7 +54,9 @@ local function check_member_realm_add(cb_extra, success, result)
 		  lock_name = 'yes',
           lock_photo = 'no',
           lock_member = 'no',
-          flood = 'yes'
+          flood = 'yes',
+          version = 3.5',
+          groupmodel = normal'
         }
       }
       save_data(_config.moderation.data, data)
@@ -123,6 +127,8 @@ local function check_member_modadd(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
+          version = '3.5',
+          groupmodel = 'normal',
         }
       }
       save_data(_config.moderation.data, data)
@@ -216,7 +222,7 @@ local function show_group_settingsmod(msg, data, target)
     	leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
    	end
   local settings = data[tostring(target)]['settings']
-  local text = "Group settings:\nLock group join : "..settings.lock_join.."\nLock group tag : "..settings.antitag.."\nLock group link : "..settings.antilink.."\nLock group name : "..settings.lock_name.."\nLock group photo : "..settings.lock_photo.."\nLock group member : "..settings.lock_member.."\nLock group leave : "..leave_ban.."\nflood sensitivity : "..NUM_MSG_MAX.."\nBot protection : "..bots_protection--"\nPublic: "..public
+  local text = "Your Group settings⚙ :\n ___________________\n> Lock group join : "..settings.lock_join.."\n\n> Lock group tag : "..settings.antitag.."\n\n> Lock group link : "..settings.antilink.."\n\n>Lock group name : "..settings.lock_name.."\n\n>Lock group photo : "..settings.lock_photo.."\n\n> Lock group member : "..settings.lock_member.."\n\n> Lock group leave : "..leave_ban.."\n\n> flood sensitivity : "..NUM_MSG_MAX.."\n\n> Bot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
 
@@ -1142,6 +1148,40 @@ local function run(msg, matches)
        return unlock_group_tag(msg, data, target)
      end
    end
+   if matche[1] == 'setversion' then
+   	if not is_sudo(msg) then
+   	return "For Sudo Users Only!
+   end
+   if matches[1] == '1.0' then
+   	if version ~= '1.0' then 
+   	data[tostring(msg.to.id)]['settings']['version'] = '1.0'
+   	save_data(_config.moderation.data, data)
+   end
+   return 'Group Version Has Been Changed To <1.0>!'
+end
+if matches[2] == '2.0' then
+	if version ~= '2.0' then
+	data[tostring(msg.to.id)]['settings']['version'] = '2.0'
+	save_data(_config.moderation.data, data)	
+	end
+	return "Group Version Has Been Changed To <2.0>!"
+end
+if matches[2] == '3.5' then
+	if version != '3.5' then
+	data[tostring(msg.to.id)]['settings']['version'] = '3.5'
+	save_data(_config.moderation.data, data)
+       end
+       return "Group Version Has Been Changed To <3.5>!
+    end 
+ end
+if matches[1] 'setgroup' then
+	if not is_sudo(msg) then
+	return "For Sudo Users Only!"
+
+		
+   	
+end
+end
     if matches[1] == 'settings' then
       local target = msg.to.id
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group settings ")
