@@ -222,7 +222,7 @@ local function show_group_settingsmod(msg, data, target)
     	leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
    	end
   local settings = data[tostring(target)]['settings']
-  local text = "Your Group settings⚙ :\n ___________________\n> Lock group join : "..settings.lock_join.."\n\n> Lock group tag : "..settings.antitag.."\n\n> Lock group link : "..settings.antilink.."\n\n>Lock group name : "..settings.lock_name.."\n\n>Lock group photo : "..settings.lock_photo.."\n\n> Lock group member : "..settings.lock_member.."\n\n> Lock group leave : "..leave_ban.."\n\n> flood sensitivity : "..NUM_MSG_MAX.."\n\n> Bot protection : "..bots_protection--"\nPublic: "..public
+  local text = "Your Group settings⚙ :\n ___________________\n\n> GroupMode : "..settings.groupmodel.."\n\n> Group Version : "..settings.version.."\n\n> Lock group join : "..settings.lock_join.."\n\n> Lock group tag : "..settings.antitag.."\n\n> Lock group link : "..settings.antilink.."\n\n>Lock group name : "..settings.lock_name.."\n\n>Lock group photo : "..settings.lock_photo.."\n\n> Lock group member : "..settings.lock_member.."\n\n> Lock group leave : "..leave_ban.."\n\n> flood sensitivity : "..NUM_MSG_MAX.."\n\n> Bot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
 
@@ -1174,10 +1174,6 @@ if matches[2] == '3.5' then
        return "Group Version Has Been Changed To <3.5>!
     end 
  end
- if matches[1] 'groupmodel' then
-       return 'Group Mode Is "..settings.groupmodel !
-   end
- end
 if matches[1] 'setgroup' then
 	if not is_sudo(msg) then
 	return "For Sudo Users Only!"
@@ -1473,7 +1469,6 @@ return {
   "^[!/](getlink)$",
   "^[!/](setversion) (.*)$",
   "^[!/](setgroup) (.*)$",
-  "^[!/](groupmodel)$",
   "^[!/](kickinactive)$",
   "^[!/](kickinactive) (%d+)$",
   "%[(photo)%]",
