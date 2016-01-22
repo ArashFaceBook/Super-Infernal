@@ -205,9 +205,9 @@ function create_config( )
   config = {
     enabled_plugins = {
     "inrealm",
-    "ingroup",
+    "Group_Manager",
     "inpm",
-    "Member_Manager",
+    "Banhammer",
     "Boobs",
     "Feedback",
     "plugins",
