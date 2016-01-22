@@ -5,7 +5,7 @@ if msg.action and msg.action.type then
     if data[tostring(msg.to.id)]['settings']['lock_join'] == 'yes' then
   if not is_momod(msg) then
   chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-    local msg = 'Join link is Locked !'
+    local msg = 'Link Sending is Not Allowed Here !'
    local receiver = msg.to.id
     send_large_msg('chat#id'..receiver, msg.."\n", ok_cb, false)
   
