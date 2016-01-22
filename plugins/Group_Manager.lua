@@ -861,7 +861,7 @@ local function run(msg, matches)
       load_photo(msg.id, set_group_photo, msg)
     end
   end
-  if matches[1] == 'add' and not matches[2] then
+  if matches[1] == 'modadd' and not matches[2] then
     if is_realm(msg) then
        return 'Error: Already a realm.'
     end
@@ -875,7 +875,7 @@ local function run(msg, matches)
     print("group "..msg.to.print_name.."("..msg.to.id..") added as a realm")
     return realmadd(msg)
   end
-  if matches[1] == 'rem' and not matches[2] then
+  if matches[1] == 'modrem' and not matches[2] then
     print("group "..msg.to.print_name.."("..msg.to.id..") removed")
     return modrem(msg)
   end
@@ -1476,9 +1476,9 @@ end
 
 return {
   patterns = {
-  "^[!/](add)$",
+  "^[!/](modadd)$",
   "^[!/](add) (realm)$",
-  "^[!/](rem)$",
+  "^[!/](modrem)$",
   "^[!/](rem) (realm)$",
   "^[!/](rules)$",
   "^[!/](about)$",
