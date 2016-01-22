@@ -209,11 +209,11 @@ return {
           },
   patterns = {
     "^[!/](plug)$",
-    "^[!/](plug)? (+) ([%w_%.%-]+)$",
-    "^[!/](plug)? (-) ([%w_%.%-]+)$",
-    "^[!/](plug)? (+) ([%w_%.%-]+) (group)",
-    "^[!/](plug)? (-) ([%w_%.%-]+) (group)",
-    "^[!/](plug)? (?)$" },
+    "^[!/]plug? (+) ([%w_%.%-]+)$",
+    "^[!/]plug? (-) ([%w_%.%-]+)$",
+    "^[!/]plug? (+) ([%w_%.%-]+) (group)",
+    "^[!/]plug? (-) ([%w_%.%-]+) (group)",
+    "^[!/]plug? (?)$" },
   run = run,
   moderated = true, -- set to moderator mode
   --privileged = true
