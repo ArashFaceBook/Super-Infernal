@@ -686,7 +686,7 @@ local function setowner_by_reply(extra, success, result)
   data[tostring(msg.to.id)]['set_owner'] = tostring(msg.from.id)
       save_data(_config.moderation.data, data)
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] setted ["..msg.from.id.."] as owner")
-      local text = msg.from.print_name:gsub("_", " ").." is the owner now"
+      local text = msg.from.print_name:gsub("_", " ").." Has Been Promoted As The Owner!"
       return send_large_msg(receiver, text)
 end
 
@@ -1467,9 +1467,10 @@ return {
   "^[!/](settings)$",
 -- "^[!/](public) (.*)$",
   "^[!/](modlist)$",
-  "^[!/](newlink)$",
+  "^[!/](clink)$",
+  "^[!/](relink)$",
   "^[!/](link)$",
-  "^[!/](linkpv)$",
+  "^[!/](getlink)$",
   "^[!/](setversion) (.*)$",
   "^[!/](setgroup) (.*)$",
   "^[!/](groupmodel)$",
