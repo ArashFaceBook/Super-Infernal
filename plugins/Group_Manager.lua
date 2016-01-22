@@ -55,8 +55,9 @@ local function check_member_realm_add(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
-          version = 3.5',
-          groupmodel = normal'
+          version = '3.5',
+          groupmodel = 'normal',
+          lock_chat = 'no'
         }
       }
       save_data(_config.moderation.data, data)
@@ -92,6 +93,9 @@ function check_member_group(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
+          version = '3.5',
+          groumodel = 'normal',
+          lock_chat = 'no'
         }
       }
       save_data(_config.moderation.data, data)
@@ -129,6 +133,7 @@ local function check_member_modadd(cb_extra, success, result)
           flood = 'yes',
           version = '3.5',
           groupmodel = 'normal',
+          lock_chat = 'no',
         }
       }
       save_data(_config.moderation.data, data)
@@ -222,7 +227,7 @@ local function show_group_settingsmod(msg, data, target)
     	leave_ban = data[tostring(msg.to.id)]['settings']['leave_ban']
    	end
   local settings = data[tostring(target)]['settings']
-  local text = "Your Group settings⚙ :\n ___________________\n\n> GroupMode : "..settings.groupmodel.."\n\n> Group Version : "..settings.version.."\n\n> Lock group join : "..settings.lock_join.."\n\n> Lock group tag : "..settings.antitag.."\n\n> Lock group link : "..settings.antilink.."\n\n>Lock group name : "..settings.lock_name.."\n\n>Lock group photo : "..settings.lock_photo.."\n\n> Lock group member : "..settings.lock_member.."\n\n> Lock group leave : "..leave_ban.."\n\n> flood sensitivity : "..NUM_MSG_MAX.."\n\n> Bot protection : "..bots_protection--"\nPublic: "..public
+  local text = "Your Group settings⚙ :\n ___________________\n\n> lock chat : "..settings.lock_chat.."\n\n> Group Mode : "..settings.groupmodel.."\n\n> Group Version : "..settings.version.."\n\n> Lock group join : "..settings.lock_join.."\n\n> Lock group tag : "..settings.antitag.."\n\n> Lock group link : "..settings.antilink.."\n\n>Lock group name : "..settings.lock_name.."\n\n>Lock group photo : "..settings.lock_photo.."\n\n> Lock group member : "..settings.lock_member.."\n\n> Lock group leave : "..leave_ban.."\n\n> flood sensitivity : "..NUM_MSG_MAX.."\n\n> Bot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
 
@@ -299,6 +304,34 @@ local function unlock_group_bots(msg, data, target)
     return 'Bots protection has been disabled'
   end
 end
+
+local function lock_group_chat(msg, data, target)
+	if not is_momod(msg) then
+		return 'for moderators only!'
+	end
+	local group_chat_lock = data[tostring(target)['settings']['lock_chat']
+		if group_chat_lock == 'yes' then
+			return 'chat is already locked from talking!'
+		else
+		data[tostring(target)['settings']['lock_chat'] = 'yes'
+		save_data(_config.moderation.data, data)
+		return 'chat has been locked !'
+                     end
+		end
+		local function unlock_group_chat(msg, data, target)
+	if not is_momod(msg) then
+		return 'for moderators only!'
+	end
+	local group_chat_lock = data[tostring(target)['settings']['lock_chat']
+		if group_chat_lock == 'no' then
+			return 'chat is already unlocked from talking!'
+		else
+		data[tostring(target)['settings']['lock_chat'] = 'no'
+		save_data(_config.moderation.data, data)
+		return 'chat has been unlocked !'
+                     end
+		end
+		
 local function lock_group_tag(msg, data, target)
 if not is_momod(msg) then
 return "For moderators only!"
@@ -1087,6 +1120,10 @@ local function run(msg, matches)
       if matches[2] == 'bots' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked bots ")
         return lock_group_bots(msg, data, target)
+       end
+     if matches[2] == 'chat' then
+     	savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked chat ")
+     	return lock_group_chat(msg, data, target)
       end
     if matches[2] == 'leave' then
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked leaving ")
@@ -1134,6 +1171,10 @@ local function run(msg, matches)
       if matches[2] == 'bots' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked bots ")
         return unlock_group_bots(msg, data, target)
+        end
+          if matches[2] == 'chat' then
+     	savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked chat ")
+     	return unlock_group_chat(msg, data, target)
       end
 	  if matches[2] == 'join' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked joining link ")
