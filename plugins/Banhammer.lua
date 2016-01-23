@@ -100,7 +100,7 @@ local function kick_ban_res(extra, success, result)
          return kick_user(member_id, chat_id)
       elseif get_cmd == 'ban' then
         if is_momod2(member_id, chat_id) and not is_admin2(sender) then
-          return send_large_msg(receiver, "You can't ban mods/owner/admins")
+          return send_large_msg(receiver, "You Can Not Kick mod , Leader , or admin user!")
         end
         send_large_msg(receiver, 'User @'..member..' <'..member_id..'> banned')
         return ban_user(member_id, chat_id)
@@ -130,7 +130,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Group ID :\n"("..msg.to.id..)"\nYour ID :\n("..msg.from.id..") 
+      return "Group ID :\n"("..msg.to.id..)"\nYour ID :\n("..msg.from.id..")\nLeader ID : [..group_owner..] 
     end
   end
   if matches[1]:lower() == 'kickme' then-- /kickme
@@ -168,7 +168,7 @@ local function run(msg, matches)
          	return
         end
         if not is_admin(msg) and is_momod2(matches[2], msg.to.id) then
-          	return "you can't ban mods/owner/admins"
+          	return "you can not kick an moderator or leader or admin !"
         end
         if tonumber(matches[2]) == tonumber(msg.from.id) then
           	return "You can't ban your self !"
