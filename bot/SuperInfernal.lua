@@ -224,7 +224,7 @@ function create_config( )
     "google",
     "Maseage",
     "anti_spam",
-    "owners",
+    "leaders",
     "set",
     "get",
     "lock_chat",
