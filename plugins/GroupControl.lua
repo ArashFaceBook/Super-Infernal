@@ -89,7 +89,7 @@ function check_member_group(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'You have been promoted as the owner.')
+      return send_large_msg(receiver, 'You have been promoted as the Leader For This Group!.')
     end
   end
 end
@@ -891,7 +891,7 @@ local function run(msg, matches)
     end
     if matches[1] == 'promote' and not matches[2] then
       if not is_owner(msg) then
-        return "Only the owner can prmote new moderators"
+        return "Only the Leader can prmote new moderators"
       end
       if type(msg.reply_id)~="nil" then
           msgr = get_message(msg.reply_id, promote_by_reply, false)
@@ -902,7 +902,7 @@ local function run(msg, matches)
         return
       end
       if not is_owner(msg) then
-        return "Only owner can promote"
+        return "Only Leader can promote"
       end
 	local member = matches[2]
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] promoted @".. member)
@@ -917,7 +917,7 @@ local function run(msg, matches)
     end
     if matches[1] == 'demote' and not matches[2] then
       if not is_owner(msg) then
-        return "Only the owner can demote moderators"
+        return "Only the Leader can demote moderators"
       end
       if type(msg.reply_id)~="nil" then
           msgr = get_message(msg.reply_id, demote_by_reply, false)
@@ -928,7 +928,7 @@ local function run(msg, matches)
         return
       end
       if not is_owner(msg) then
-        return "Only owner can demote"
+        return "Only Leader can demote"
       end
       if string.gsub(matches[2], "@", "") == msg.from.username and not is_owner(msg) then
         return "You can't demote yourself"
@@ -971,7 +971,7 @@ local function run(msg, matches)
         return set_descriptionmod(msg, data, target, about)
       end
     end
-    if matches[1] == 'lock' then
+    if matches[1] == 'close' then
       local target = msg.to.id
       if matches[2] == 'name' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked name ")
@@ -998,7 +998,7 @@ local function run(msg, matches)
        return lock_group_leave(msg, data, target)
      end
    end
-    if matches[1] == 'unlock' then 
+    if matches[1] == 'open' then 
       local target = msg.to.id
       if matches[2] == 'name' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked name ")
@@ -1075,6 +1075,17 @@ local function run(msg, matches)
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
       return "your Groups invation link:\n"..group_link
     end
+     if matches[1] == 'getlink' then
+      if not is_momod(msg) then
+        return "For moderators only!"
+      end
+      local group_link = data[tostring(msg.to.id)]['settings']['set_link']
+      if not group_link then 
+        return "Create a link using /createlink first !"
+      end
+       savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
+     send_large_msg('user#id'..msg.from.id, "Your Groups Invation link:\n"..group_link)
+    end
     if matches[1] == 'addleader' and matches[2] then
       if not is_admin(msg) then
         return "For admins only!"
@@ -1093,7 +1104,7 @@ local function run(msg, matches)
           msgr = get_message(msg.reply_id, setowner_by_reply, false)
       end
     end
-    if matches[1] == 'owner' then
+    if matches[1] == 'leader' then
       local group_owner = data[tostring(msg.to.id)]['set_owner']
       if not group_owner then 
         return "no leader,ask admins in support groups to set leader for your group"
