@@ -5,7 +5,7 @@ local function tagall(cb_extra, success, result)
     local text = ''
     for k,v in pairs(result.members) do
         if v.username then
-			text = text.."@"..v.username.."\n"
+			text = text.."👥 - @"..v.username.."\n"
 		end
     end
 	text = text.."\n"..cb_extra.msg_text
@@ -29,7 +29,7 @@ return {
     "/tagall [msg]."
   },
   patterns = {
-    "^[!/]tagall +(.+)$"
+    "^/tagall +(.+)$"
   },
   run = run
 }
