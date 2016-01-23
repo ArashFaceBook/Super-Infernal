@@ -211,9 +211,6 @@ function create_config( )
     "Boobs",
     "Feedback",
     "plugins",
-    "lock_join",
-    "antilink",
-    "antitag",
     "gps",
     "Auto_Leave",
     "calc",
@@ -240,11 +237,60 @@ function create_config( )
     disabled_channels = {},
     realm = {},--Realms Id
     moderation = {data = 'data/moderation.json'},
-    about_text = [[
-    No about just test
+    about_text = [[ InfernalTG V 4.1 
+  Website : https://Arash-Infernal.epage.IR
+  New Real Website soon :D
+  Official github : https://github.com/INFERNALTEAM/InfernalTG
+  Sudo admin : @ArashInfernal
+  You Can Get the Supports link in our github
+  antispam ; @INFERNALTG
+  powered by:
+  INFERNALTEAM 
+  our channels :
+  @INFERNANLTEAMCH [English]
+  @INFERNALTEAM [ English and per]
+  @INFERNALCHANNEL [persian]
 ]],
     help_text_realm = [[
-no help
+tools for InfernalTG :
+> #Add_bot
+> #Anti_Bot
+> #Auto_Leave
+> #BLOCK
+> #Feedback
+> #Member_Manager
+> #S2A
+> #SUDO
+> #all
+> #arabic_lock
+> #banhammer
+> #down_media
+> #get
+> #inpm
+> #invite
+> #leaders
+> #leave_ban
+> #plugins
+> #realmcommands
+> #service_entergroup
+> #set
+> #anti_spam
+> #stats
+> #toengsupport
+> #topersupport
+> #Robot
+> #Group
+> #Version
+> #close_group
+> #kickall
+> #Maseage
+> #tagall
+> #sharesudo
+help all plugin soon :D ,"
+You Can Get Bot version by sending !version,"
+Master admin : @ArashInfernal ,"
+our channel : @INFERNALTEAMCH ,"
+
 
 
 ]],
