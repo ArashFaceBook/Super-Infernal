@@ -119,7 +119,7 @@ local function run(msg, matches)
     if matches[2] == 'ban' then
       local chat_id = matches[1]
       if not is_owner2(msg.from.id, chat_id) then
-        return "You are not the owner of this group"
+        return "You are not the leader of this group"
       end
       if tonumber(matches[3]) == tonumber(our_id) then return false end
       local user_id = matches[3]
@@ -135,7 +135,7 @@ local function run(msg, matches)
     if tonumber(matches[3]) == tonumber(our_id) then return false end
       local chat_id = matches[1]
       if not is_owner2(msg.from.id, chat_id) then
-        return "You are not the owner of this group"
+        return "You are not the leader of this group"
       end
       local user_id = matches[3]
       if tonumber(matches[3]) == tonumber(msg.from.id) then 
@@ -150,7 +150,7 @@ local function run(msg, matches)
     if matches[2] == 'kick' then
       local chat_id = matches[1]
       if not is_owner2(msg.from.id, chat_id) then
-        return "You are not the owner of this group"
+        return "You are not the leader of this group"
       end
       if tonumber(matches[3]) == tonumber(our_id) then return false end
       local user_id = matches[3]
@@ -165,7 +165,7 @@ local function run(msg, matches)
     if matches[2] == 'clean' then
       if matches[3] == 'modlist' then
         if not is_owner2(msg.from.id, chat_id) then
-          return "You are not the owner of this group"
+          return "You are not the leader of this group"
         end
         for k,v in pairs(data[tostring(matches[1])]['moderators']) do
           data[tostring(matches[1])]['moderators'][tostring(k)] = nil
@@ -176,7 +176,7 @@ local function run(msg, matches)
       end
       if matches[3] == 'rules' then
         if not is_owner2(msg.from.id, chat_id) then
-          return "You are not the owner of this group"
+          return "You are not the leader of this group"
         end
         local data_cat = 'rules'
         data[tostring(matches[1])][data_cat] = nil
@@ -186,7 +186,7 @@ local function run(msg, matches)
       end
       if matches[3] == 'about' then
         if not is_owner2(msg.from.id, chat_id) then
-          return "You are not the owner of this group"
+          return "You are not the leader of this group"
         end
         local data_cat = 'description'
         data[tostring(matches[1])][data_cat] = nil
@@ -197,7 +197,7 @@ local function run(msg, matches)
     end
     if matches[2] == "setflood" then
       if not is_owner2(msg.from.id, chat_id) then
-        return "You are not the owner of this group"
+        return "You are not the leader of this group"
       end
       if tonumber(matches[3]) < 5 or tonumber(matches[3]) > 20 then
         return "Wrong number,range is [5-20]"
@@ -209,7 +209,7 @@ local function run(msg, matches)
       savelog(matches[1], name.." ["..msg.from.id.."] set flood to ["..matches[3].."]")
       return 'Group flood has been set to '..matches[3]
     end
-    if matches[2] == 'lock' then
+    if matches[2] == 'close' then
       if not is_owner2(msg.from.id, chat_id) then
         return "You are not the owner of this group"
       end
@@ -225,7 +225,7 @@ local function run(msg, matches)
         return lock_group_membermod(msg, data, target)
       end
     end
-    if matches[2] == 'unlock' then
+    if matches[2] == 'open' then
       if not is_owner2(msg.from.id, chat_id) then
         return "You are not the owner of this group"
       end
@@ -241,7 +241,7 @@ local function run(msg, matches)
         return unlock_group_membermod(msg, data, target)
       end
     end
-    if matches[2] == 'new' then
+    if matches[2] == 'create' then
       if matches[3] == 'link' then
         if not is_owner2(msg.from.id, chat_id) then
           return "You are not the owner of this group"
@@ -257,21 +257,21 @@ local function run(msg, matches)
         local name = user_print_name(msg.from)
         savelog(matches[1], name.." ["..msg.from.id.."] revoked group link ")
         export_chat_link(receiver, callback, true)
-        return "Created a new new link ! \n owner can get it by /owners "..matches[1].." get link"
+        return "Created a new new link ! \n leader can get it by /leaders "..matches[1].." get link"
       end
     end
     if matches[2] == 'get' then 
       if matches[3] == 'link' then
         if not is_owner2(msg.from.id, chat_id) then
-          return "You are not the owner of this group"
+          return "You are not the leader of this group"
         end
         local group_link = data[tostring(matches[1])]['settings']['set_link']
         if not group_link then 
-          return "Create a link using /newlink first !"
+          return "Create a link using /createlink first !"
         end
         local name = user_print_name(msg.from)
         savelog(matches[1], name.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-        return "Group link:\n"..group_link
+        return "Your Groups invation link:\n"..group_link
       end
     end
     if matches[1] == 'changeabout' and matches[2] and is_owner2(msg.from.id, matches[2]) then
@@ -306,8 +306,8 @@ local function run(msg, matches)
 end
 return {
   patterns = {
-    "^[!/]owners (%d+) ([^%s]+) (.*)$",
-    "^[!/]owners (%d+) ([^%s]+)$",
+    "^[!/]leaders (%d+) ([^%s]+) (.*)$",
+    "^[!/]leaders (%d+) ([^%s]+)$",
     "^[!/](changeabout) (%d+) (.*)$",
     "^[!/](changerules) (%d+) (.*)$",
     "^[!/](changename) (%d+) (.*)$",
