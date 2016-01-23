@@ -23,7 +23,7 @@ local function action_by_reply(extra, success, result)
   elseif data[tostring(msg.to.id)]['moderators'][tostring(user_id)] then
     who = 'Moderator'
   elseif data[tostring(msg.to.id)]['set_owner'] == tostring(user_id) then
-    who = 'Owner'
+    who = 'Leader'
   elseif tonumber(result.from.id) == tonumber(our_id) then
     who = 'Group creator'
   else
@@ -40,7 +40,7 @@ local function action_by_reply(extra, success, result)
              ..'Username : '..user_name..'\n\n'
              ..'User Id : '..result.from.id..'\n\n'
              ..msgs..'\n\n'
-             ..'Wai : '..who
+             ..'Status : '..who
   send_large_msg(extra.receiver, text)
 end
 
