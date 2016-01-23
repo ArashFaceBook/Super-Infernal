@@ -1,7 +1,7 @@
 do
 
 local function run(msg, matches)
-  if matches[1] == "get" and matches[2] "plug" then
+  if matches[1] == "getplug" then
     local file = matches[2]
     if is_sudo(msg) then
       local receiver = get_receiver(msg)
@@ -12,7 +12,7 @@ end
 
 return {
   patterns = {
-  "^[!/](get) (plug) (.*)$"
+  "^[!/](getplug) (.*)$"
   },
   run = run
 }
